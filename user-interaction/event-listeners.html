@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../include/style.css">
+    <title>Event listeners and handlers</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+    window.onload = function() {
+        var canvas = document.getElementById('canvas');
+        canvas.addEventListener('mousedown', mouseDownHandler, false);
+
+         function mouseDownHandler(event) {
+         console.log("mouse down");
+         }
+
+         canvas.addEventListener('mouseup', mouseUpHandler, false);
+
+         function mouseUpHandler(event){
+         console.log("mouse up");
+         }
+    };
+</script>
+</body>
+</html>
