@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype HTML>
 <html>
 <head>
     <meta charset="utf-16">
@@ -40,8 +40,10 @@
         x: 0,
         y: 0,
         width: 125,
-        height: 131
-    }
+        height: 131,
+
+        visible: true
+    };
 
     // Create alien sprite
     var alienSprite = Object.create(spriteObject);
@@ -66,6 +68,23 @@
     var down = document.querySelector('#down');
     down.addEventListener('mousedown', downHandler, false);
 
+    var left = document.querySelector('#left');
+    left.addEventListener('mousedown', leftHandler, false);
+
+    var right = document.querySelector('#right');
+    right.addEventListener('mousedown', rightHandler, false);
+
+    var bigger = document.querySelector('#bigger');
+    bigger.addEventListener('mousedown', biggerHandler, false);
+
+    var smaller = document.querySelector('#smaller');
+    smaller.addEventListener('mousedown', smallerHandler, false);
+
+    var hide = document.querySelector('#hide');
+    hide.addEventListener('mousedown', hideHandler, false);
+
+    var show = document.querySelector('#show');
+    show.addEventListener('mousedown', showHandler, false);
 
     function update () {
         // The animation loop
@@ -84,16 +103,48 @@
         alienSprite.y += 10;
     }
 
+    function leftHandler () {
+        alienSprite.x -= 10;
+    }
+
+    function rightHandler () {
+        alienSprite.x += 10;
+    }
+
+    function biggerHandler () {
+        alienSprite.width += 10;
+        alienSprite.height += 10;
+        alienSprite.x -= 5;
+        alienSprite.y -= 5;
+    }
+
+    function smallerHandler () {
+        alienSprite.width -= 10;
+        alienSprite.height -= 10;
+        alienSprite.x += 5;
+        alienSprite.y += 5;
+    }
+
+    function hideHandler () {
+        alienSprite.visible = false;
+    }
+
+    function showHandler () {
+        alienSprite.visible = true;
+    }
 
     function render () {
         drawingSurface.clearRect(0, 0, canvas.width, canvas.height);
-        if (sprites.length !== 0) {
-            for (var i = 0; i < sprites.length; i++) {
-                var sprite = sprites[i];
-                drawingSurface.drawImage(
-                alienImage, sprite.sourceX, sprite.sourceY, sprite.sourceWidth, sprite.sourceHeight,
-                Math.floor(sprite.x), Math.floor(sprite.y), sprite.width, sprite.height
-                )
+
+        if (alienSprite.visible) {
+            if (sprites.length !== 0) {
+                for (var i = 0; i < sprites.length; i++) {
+                    var sprite = sprites[i];
+                    drawingSurface.drawImage(
+                    alienImage, sprite.sourceX, sprite.sourceY, sprite.sourceWidth, sprite.sourceHeight,
+                    Math.floor(sprite.x), Math.floor(sprite.y), sprite.width, sprite.height
+                    )
+                }
             }
         }
     }
