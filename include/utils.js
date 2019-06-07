@@ -44,8 +44,13 @@ utils.captureTouch = function (element) {
     var touch = {x: null, y: null, isPressed: false, event: null};
 
     element.addEventListener('touchstart', function (event) {
+        var touch_event = event.touches[0], x, y;
+        x = touch_event.pageX;
+        y = touch_event.pageY;
         touch.isPressed = true;
         touch.event = event;
+        touch.x = x;
+        touch.y = y;
     }, false);
 
     element.addEventListener('touchend', function (event) {

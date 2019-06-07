@@ -18,18 +18,19 @@
 
                 var touch = utils.captureTouch(canvas);
 
-                // Check for a touch before accessing x, y values
-                if (touch.isPressed) {
-                    console.log('x: ' + touch.x + ', y: ' + touch.y);
-                } else {
                     function onTouchEvent(event) {
-                        console.log('x: ' + touch.x + ', y: ' + touch.y);
+                        // Check for a touch before accessing x, y values
+                        if (touch.isPressed) {
+                            console.log('x: ' + touch.x + ', y: ' + touch.y);
+                        } else {
+                            console.log('No touch event');
+                        }
+                        console.log(event.type + ' ' + touch.isPressed);
                     }
 
                     canvas.addEventListener('touchstart', onTouchEvent, false);
                     canvas.addEventListener('touchend', onTouchEvent, false);
                     canvas.addEventListener('touchmove', onTouchEvent, false);
-                }
             }
         </script>
     </body>
