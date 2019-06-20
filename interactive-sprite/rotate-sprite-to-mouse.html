@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rotate object to mouse</title>
+    <link rel="stylesheet" href="../include/style.css">
+</head>
+<body>
+<script src="classes/sprite.js/"></script>
+<script src="../include/utils.js"></script>
+<script>
+        window.onload = function () {
+        var dx, dy;
+        // Create reference to new canvas element
+        var canvas = document.createElement('canvas');
+        // Set canvas dimensions
+        canvas.setAttribute('width', '400');
+        canvas.setAttribute('height', '400');
+        // Set canvas element id
+        canvas.setAttribute('id', 'canvas');
+        // Add canvas element to page
+        document.body.appendChild(canvas);
+        var  drawingSurface = canvas.getContext('2d');
+
+        // Load image
+        var image = new Image();
+        image.src = 'alien.png';
+        image.addEventListener('load', loadHandler, false);
+
+        // Create array to hold sprites
+        var sprites = [];
+
+        // Create new instance of sprite object
+        var sprite = new SpriteObject();
+        // Call captureMouse method and assign value to mouse variable
+        var mouse = utils.captureMouse(canvas);
+
+        // Centre sprite on canvas
+        sprite.x = 119.5;   // (canvas width - sprite width) / 2
+        sprite.y = 166;     // (canvas height - sprite height) / 2
+        // Give sprite dimensions
+        sprite.width = 161;
+        sprite.height = 168;
+        sprites.push(sprite);
+
+        function loadHandler () {
+            console.log('image loaded');
+            update();
+        }
+
+        function update () {
+            window.requestAnimationFrame(update);
+
+            render();
+        }
+
+        // Render the image
+        function render () {
+            drawingSurface.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (sprites.length !== 0) {
+                drawingSurface.save(); // Save the context's current state
+                drawingSurface.translate(200, 200); // Move the context's centre point to the canvas center
+                // Get length of triangle legs (ratio of mouse position to x and y position of sprite)
+                // and work out the angle from this using Math.atan2()
+                dx = mouse.x - sprite.x;
+                dy = mouse.y - sprite.y;
+                sprite.rotation = Math.atan2(dy, dx); // radians
+                drawingSurface.rotate(sprite.rotation);
+            }
+
+            drawingSurface.drawImage(
+                image, -sprite.sourceX, -sprite.sourceY, sprite.width, sprite.height,
+                -sprite.x, -sprite.y, sprite.width, sprite.height
+            );
+            drawingSurface.restore();
+        }
+    };
+</script>
+</body>
+</html>
