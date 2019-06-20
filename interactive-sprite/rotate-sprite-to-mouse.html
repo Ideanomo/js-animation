@@ -36,8 +36,8 @@
         var mouse = utils.captureMouse(canvas);
 
         // Centre sprite on canvas
-        sprite.x = 119.5;   // (canvas width - sprite width) / 2
-        sprite.y = 166;     // (canvas height - sprite height) / 2
+        sprite.x = (canvas.width / 2) - sprite.width; // 119.5
+        sprite.y = (canvas.height / 2) - sprite.height; // 166
         // Give sprite dimensions
         sprite.width = 161;
         sprite.height = 168;
@@ -60,7 +60,7 @@
 
             if (sprites.length !== 0) {
                 drawingSurface.save(); // Save the context's current state
-                drawingSurface.translate(200, 200); // Move the context's centre point to the canvas center
+                drawingSurface.translate(canvas.width / 2, canvas.height / 2); // Move the context's centre point to the canvas center
                 // Get length of triangle legs (ratio of mouse position to x and y position of sprite)
                 // and work out the angle from this using Math.atan2()
                 dx = mouse.x - sprite.x;
@@ -70,7 +70,7 @@
             }
 
             drawingSurface.drawImage(
-                image, -sprite.sourceX, -sprite.sourceY, sprite.width, sprite.height,
+                image, sprite.sourceX, sprite.sourceY, sprite.width, sprite.height,
                 -sprite.x, -sprite.y, sprite.width, sprite.height
             );
             drawingSurface.restore();
