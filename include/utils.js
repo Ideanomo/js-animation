@@ -7,14 +7,14 @@ var utils = {};
  * @param {HTMLElement} element
  * @return {object} Contains properties: x, y, event
  */
-utils.captureMouse = function(element) {
+utils.captureMouse = function (element) {
     // Create mouse object
     var mouse = {x: 0, y: 0};
-    element.addEventListener('mousemove', function(event) {
+    element.addEventListener('mousemove', function (event) {
         var x, y;
         // Set x and y values with the event.pageX and pageY
         // or get the document offset position of the element
-        if(event.pageX || event.pageY) {
+        if (event.pageX || event.pageY) {
             x = event.pageX;
             y = event.pageY;
         } else {
