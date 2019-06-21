@@ -8,10 +8,3 @@ function SpriteObject () {
     this.height = 0;
     this.rotation = 0;
 }
-
-/*SpriteObject.prototype.setup = function (drawingSurface) {
-    drawingSurface.save();
-    drawingSurface.translate(this.x, this.y);
-    drawingSurface.rotate(this.rotation);
-    drawingSurface.restore();
-};*/
