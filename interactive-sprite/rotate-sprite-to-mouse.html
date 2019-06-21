@@ -34,13 +34,13 @@
         var sprite = new SpriteObject();
         // Call captureMouse method and assign value to mouse variable
         var mouse = utils.captureMouse(canvas);
-        // Give sprite dimensions
-        sprite.width = 161;
-        sprite.height = 168;
-        // Centre sprite on canvas
-        sprite.x =  (canvas.width - sprite.width) / 2;
-        sprite.y = (canvas.height - sprite.height) / 2;
 
+        // Centre sprite on canvas
+        sprite.x = (canvas.width/2);
+        sprite.y = (canvas.height/2);
+        // Give sprite dimensions
+        sprite.width = 125;
+        sprite.height = 131;
         sprites.push(sprite);
 
         function loadHandler () {
@@ -54,28 +54,31 @@
             render();
         }
 
-        // Render the image
-        function render () {
-            drawingSurface.clearRect(0, 0, canvas.width, canvas.height);
+            // Render the image
+            function render () {
+                drawingSurface.clearRect(0, 0, canvas.width, canvas.height);
 
-            if (sprites.length !== 0) {
-                drawingSurface.save(); // Save the context's current state
-                drawingSurface.translate(canvas.width / 2, canvas.height / 2); // Move the context's centre point to the canvas center
+                if (sprites.length !== 0) {
+                    drawingSurface.save(); // Save the context's current state
+                    drawingSurface.translate(canvas.width / 2, canvas.height / 2); // Move the context's centre point to the canvas center
 
-                // Get length of triangle legs (ratio of mouse x and y position to sprite's x and y position)
-                // and work out the angle from this using Math.atan2()
-                dx = mouse.x - sprite.x;
-                dy = mouse.y - sprite.y;
-                sprite.rotation = Math.atan2(dy, dx); // radians
-                drawingSurface.rotate(sprite.rotation);
+                    // Get length of triangle legs (ratio of mouse position to x and y position of sprite)
+                    // and work out the angle from this using Math.atan2()
+                    dx = mouse.x - sprite.x;
+                    dy = mouse.y - sprite.y;
+                    sprite.rotation = Math.atan2(dy, dx); // radians
+                    drawingSurface.rotate(sprite.rotation);
+                }
+
+                drawingSurface.drawImage(
+                    image, sprite.sourceX, sprite.sourceY, sprite.width, sprite.height,
+                    -sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height
+                    // the new position for x (-sprite.width / 2), and y (-sprite.height / 2)
+                    // above is what determines the sprite's centre point when it's drawn each time.
+                    // x,y defaults to top left of sprite so divide it's width and height by 2 to centre it
+                );
+                drawingSurface.restore();
             }
-
-            drawingSurface.drawImage(
-                image, sprite.sourceX, sprite.sourceY, sprite.width, sprite.height,
-                -sprite.width/2, -sprite.height/2, sprite.width, sprite.height
-            );
-            drawingSurface.restore();
-        }
     };
 </script>
 </body>
